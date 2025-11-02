@@ -1,0 +1,1500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO Meta Tags -->
+    <title>Creeds Hub | Creed News — Nigeria's Trusted News Source</title>
+    <meta name="title" content="Creeds Hub | Creed News — Nigeria's Trusted Source for Breaking Stories">
+    <meta name="description" content="Creeds Hub (Creed News) brings you reliable Nigerian and global news — politics, business, entertainment, tech, and sports. Updated daily.">
+    <meta name="keywords" content="Creeds Hub, Creed News, Nigeria news, breaking news, Naija news, politics, entertainment, sports, tech, Africa updates">
+    <meta property="og:title" content="Creeds Hub | Creed News">
+    <meta property="og:description" content="Trusted Nigerian news and stories — politics, business, tech, and more.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="images/og-cover.jpg">
+    <meta name="author" content="Creeds Hub News Team">
+    
+    <style>
+        
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary: #0b2340;
+            --accent: #28a745;
+            --bg: #f6f7f9;
+            --text: #222;
+            --light-gray: #e0e0e0;
+            --white: #ffffff;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Inter, Arial, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            transition: background 0.3s, color 0.3s;
+        }
+        
+        body.dark-mode {
+            --bg: #1a1a1a;
+            --text: #e0e0e0;
+            --white: #2a2a2a;
+            --light-gray: #333;
+        }
+        
+        /* Preloader */
+        #preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--white);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+        
+        .loader {
+            width: 50px;
+            height: 50px;
+            border: 5px solid var(--light-gray);
+            border-top: 5px solid #28a745;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        /* Header */
+        header {
+            background: var(--white);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: var(--primary);
+            text-decoration: none;
+        }
+        
+        .logo span {
+            color: #28a745;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+        
+        nav a {
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        nav a:hover, nav a.active {
+            color: #28a745;
+        }
+        
+        .header-actions {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+        
+        .search-icon, .theme-toggle {
+            cursor: pointer;
+            font-size: 20px;
+            color: var(--text);
+        }
+        
+        .menu-toggle {
+            display: none;
+            font-size: 24px;
+            cursor: pointer;
+        }
+        
+        /* Search Modal */
+        .search-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            display: none;
+            justify-content: center;
+            align-items: flex-start;
+            padding-top: 100px;
+            z-index: 2000;
+        }
+        
+        .search-modal.active {
+            display: flex;
+        }
+        
+        .search-box {
+            background: var(--white);
+            padding: 30px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 600px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+        }
+        
+        .search-input-wrapper {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .search-input-wrapper input {
+            flex: 1;
+            padding: 15px;
+            border: 2px solid var(--light-gray);
+            border-radius: 5px;
+            font-size: 16px;
+            background: var(--bg);
+            color: var(--text);
+        }
+        
+        .search-input-wrapper button {
+            padding: 15px 30px;
+            background: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        
+        .search-input-wrapper button:hover {
+            background: #218838;
+        }
+        
+        .search-results {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        
+        .search-result-item {
+            padding: 15px;
+            border-bottom: 1px solid var(--light-gray);
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .search-result-item:hover {
+            background: var(--bg);
+        }
+        
+        .search-result-item h4 {
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+        
+        .search-result-item p {
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .search-close {
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            font-size: 30px;
+            color: white;
+            cursor: pointer;
+        }
+        
+        /* Trending Ticker */
+        .ticker {
+            background: #28a745;
+            color: white;
+            padding: 10px 0;
+            overflow: hidden;
+        }
+        
+        .ticker-content {
+            display: flex;
+            gap: 50px;
+            animation: scroll 30s linear infinite;
+            white-space: nowrap;
+        }
+        
+        @keyframes scroll {
+            from { transform: translateX(0); }
+            to { transform: translateX(-50%); }
+        }
+        
+        .ticker-item {
+            display: inline-block;
+        }
+        
+        /* Page Header (for category pages) */
+        .page-header {
+            background: linear-gradient(135deg, var(--primary) 0%, #28a745 100%);
+            color: white;
+            padding: 60px 20px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .page-header h1 {
+            font-size: 42px;
+            margin-bottom: 10px;
+        }
+        
+        .page-header p {
+            font-size: 18px;
+            opacity: 0.9;
+        }
+        
+        /* Main Container */
+        .container {
+            max-width: 1400px;
+            margin: 30px auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 1fr 320px;
+            gap: 30px;
+        }
+        
+        .container.full-width {
+            grid-template-columns: 1fr;
+            max-width: 900px;
+        }
+        
+        /* Ad Slots */
+        .ad-slot {
+            background: var(--light-gray);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #666;
+            font-size: 14px;
+            margin: 20px 0;
+        }
+        
+        .ad-leaderboard {
+            height: 90px;
+            width: 100%;
+            max-width: 728px;
+            margin: 20px auto;
+        }
+        
+        .ad-vertical {
+            height: 600px;
+            width: 300px;
+        }
+        
+        .ad-inline {
+            height: 250px;
+            width: 100%;
+        }
+        
+        /* Hero Section */
+        .hero {
+            position: relative;
+            height: 500px;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 30px;
+            cursor: pointer;
+        }
+        
+        .hero img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .hero-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.8));
+            padding: 40px;
+            color: white;
+        }
+        
+        .category-tag {
+            display: inline-block;
+            background: #28a745;
+            padding: 5px 15px;
+            border-radius: 3px;
+            font-size: 12px;
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            color: white;
+        }
+        
+        .hero-title {
+            font-size: 32px;
+            margin-bottom: 10px;
+            line-height: 1.3;
+        }
+        
+        .article-meta {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+        
+        /* News Grid */
+        .section-title {
+            font-size: 24px;
+            margin: 30px 0 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #28a745;
+            display: inline-block;
+        }
+        
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+        
+        .news-card {
+            background: var(--white);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+        }
+        
+        .news-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+        }
+        
+        .news-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        
+        .news-card-content {
+            padding: 20px;
+        }
+        
+        .news-card-title {
+            font-size: 18px;
+            margin: 10px 0;
+            line-height: 1.4;
+        }
+        
+        .news-card-excerpt {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 15px;
+        }
+        
+        .news-card-footer {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            color: #999;
+        }
+        
+        /* Single Article Page */
+        .article-header {
+            margin-bottom: 30px;
+        }
+        
+        .article-header h1 {
+            font-size: 36px;
+            line-height: 1.3;
+            margin-bottom: 20px;
+        }
+        
+        .article-image {
+            width: 100%;
+            max-height: 500px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin: 30px 0;
+        }
+        
+        .article-content {
+            background: var(--white);
+            padding: 40px;
+            border-radius: 10px;
+            font-size: 18px;
+            line-height: 1.8;
+        }
+        
+        .article-content p {
+            margin-bottom: 20px;
+        }
+        
+        .article-content h2 {
+            margin: 30px 0 15px;
+            font-size: 28px;
+        }
+        
+        .article-tags {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid var(--light-gray);
+        }
+        
+        .tag {
+            display: inline-block;
+            background: var(--bg);
+            padding: 5px 15px;
+            border-radius: 20px;
+            margin: 5px;
+            font-size: 14px;
+        }
+        
+        /* Sidebar */
+        .sidebar {
+            position: sticky;
+            top: 100px;
+            height: fit-content;
+        }
+        
+        .sidebar-section {
+            background: var(--white);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .sidebar-title {
+            font-size: 18px;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #28a745;
+        }
+        
+        .trending-item {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--light-gray);
+            cursor: pointer;
+        }
+        
+        .trending-item:last-child {
+            border-bottom: none;
+        }
+        
+        .trending-number {
+            font-size: 24px;
+            font-weight: bold;
+            color: #28a745;
+        }
+        
+        .trending-content h4 {
+            font-size: 14px;
+            line-height: 1.4;
+            margin-bottom: 5px;
+        }
+        
+        .trending-content span {
+            font-size: 12px;
+            color: #999;
+        }
+        
+        /* Newsletter */
+        .newsletter-form input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--light-gray);
+            border-radius: 5px;
+            margin-bottom: 10px;
+            background: var(--bg);
+            color: var(--text);
+        }
+        
+        .newsletter-form button {
+            width: 100%;
+            padding: 12px;
+            background: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        
+        .newsletter-form button:hover {
+            background: #218838;
+        }
+        
+        /* Contact Form */
+        .contact-form {
+            background: var(--white);
+            padding: 40px;
+            border-radius: 10px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--light-gray);
+            border-radius: 5px;
+            background: var(--bg);
+            color: var(--text);
+            font-family: inherit;
+        }
+        
+        .form-group textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+        
+        .submit-btn {
+            width: 100%;
+            padding: 15px;
+            background: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 16px;
+        }
+        
+        .submit-btn:hover {
+            background: #218838;
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--primary);
+            color: white;
+            padding: 40px 20px 20px;
+            margin-top: 50px;
+        }
+        
+        .footer-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .footer-section h3 {
+            margin-bottom: 15px;
+            color: #28a745;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            line-height: 2;
+        }
+        
+        .footer-links a:hover {
+            color: #28a745;
+        }
+        
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            font-size: 24px;
+        }
+        
+        .social-icons a {
+            color: white;
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        /* Back to Top */
+        #backToTop {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #28a745;
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            font-size: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            z-index: 999;
+        }
+        
+        #backToTop:hover {
+            background: #218838;
+        }
+        
+        /* Page Selector (for demo purposes) */
+        .page-selector {
+            background: #28a745;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .page-selector select {
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 0 10px;
+        }
+        
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+            
+            .sidebar {
+                position: static;
+            }
+            
+            .news-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+        }
+        
+        @media (max-width: 768px) {
+            nav {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                width: 80%;
+                height: 100vh;
+                background: var(--white);
+                padding: 20px;
+                transition: left 0.3s;
+                box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+            }
+            
+            nav.active {
+                left: 0;
+            }
+            
+            nav ul {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .menu-toggle {
+                display: block;
+            }
+            
+            .hero-title {
+                font-size: 24px;
+            }
+            
+            .news-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .ad-leaderboard {
+                max-width: 320px;
+                height: 50px;
+            }
+            
+            .page-header h1 {
+                font-size: 32px;
+            }
+            
+            .article-content {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Preloader -->
+    <div id="preloader">
+        <div class="loader"></div>
+    </div>
+    
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <a href="#" class="logo" onclick="loadPage('home')">Creeds <span>Hub</span></a>
+            <nav id="nav">
+                <ul>
+                    <li><a href="#" onclick="loadPage('home')" class="nav-link" data-page="home">Home</a></li>
+                    <li><a href="#" onclick="loadPage('politics')" class="nav-link" data-page="politics">Politics</a></li>
+                    <li><a href="#" onclick="loadPage('business')" class="nav-link" data-page="business">Business</a></li>
+                    <li><a href="#" onclick="loadPage('entertainment')" class="nav-link" data-page="entertainment">Entertainment</a></li>
+                    <li><a href="#" onclick="loadPage('sports')" class="nav-link" data-page="sports">Sports</a></li>
+                    <li><a href="#" onclick="loadPage('tech')" class="nav-link" data-page="tech">Tech</a></li>
+                    <li><a href="#" onclick="loadPage('about')" class="nav-link" data-page="about">About</a></li>
+                    <li><a href="#" onclick="loadPage('contact')" class="nav-link" data-page="contact">Contact</a></li>
+                </ul>
+            </nav>
+            <div class="header-actions">
+                <span class="menu-toggle" onclick="toggleMenu()">☰</span>
+            </div>
+        </div>
+    </header>
+    
+    
+    <!-- Trending Ticker -->
+    <div class="ticker">
+        <div class="ticker-content" id="tickerContent">
+            <span class="ticker-item">🔥 BREAKING: Nigeria's Economy Shows 5% Growth</span>
+            <span class="ticker-item">⚽ Super Eagles Win AFCON Qualifier</span>
+            <span class="ticker-item">💼 New Tech Hub Opens in Lagos</span>
+            <span class="ticker-item">🎬 Nollywood Star Wins International Award</span>
+            <span class="ticker-item">📱 Nigeria Launches 5G Network Nationwide</span>
+            <span class="ticker-item">🔥 BREAKING: Nigeria's Economy Shows 5% Growth</span>
+            <span class="ticker-item">⚽ Super Eagles Win AFCON Qualifier</span>
+            <span class="ticker-item">💼 New Tech Hub Opens in Lagos</span>
+            <span class="ticker-item">🎬 Nollywood Star Wins International Award</span>
+            <span class="ticker-item">📱 Nigeria Launches 5G Network Nationwide</span>
+        </div>
+    </div>
+    
+    
+    
+    <!-- Main Content Area (Dynamic) -->
+    <div id="mainContent"></div>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3>About Creeds Hub</h3>
+                <p>Nigeria's trusted source for breaking news, analysis, and stories that matter. Keeping you informed 24/7.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="#" onclick="loadPage('about')">About Us</a></li>
+                    <li><a href="#" onclick="loadPage('contact')">Contact</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Categories</h3>
+                <ul class="footer-links">
+                    <li><a href="#" onclick="loadPage('politics')">Politics</a></li>
+                    <li><a href="#" onclick="loadPage('business')">Business</a></li>
+                    <li><a href="#" onclick="loadPage('entertainment')">Entertainment</a></li>
+                    <li><a href="#" onclick="loadPage('sports')">Sports</a></li>
+                    <li><a href="#" onclick="loadPage('tech')">Tech</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Follow Us</h3>
+                <div class="social-icons">
+                    <a href="#" title="Facebook">?</a>
+                    <a href="#" title="Twitter/X">✖</a>
+                    <a href="#" title="WhatsApp">💬</a>
+                    <a href="#" title="Instagram">?</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Creeds Hub | All Rights Reserved</p>
+        </div>
+    </footer>
+    
+    <!-- Back to Top -->
+    <div id="backToTop" onclick="scrollToTop()">↑</div>
+    
+    <script>
+        // Sample Article Data
+        const articles = [
+            {
+                id: 1,
+                title: "Nigeria's Tech Boom in 2025: What's Next for African Innovation",
+                category: "Tech",
+                author: "Creeds Hub Reporter",
+                date: "2025-11-01",
+                image: "https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=800",
+                excerpt: "Nigeria's tech industry is experiencing unprecedented growth. Here's what's driving the boom and what to expect next...",
+                content: `<p>Nigeria's technology sector has emerged as one of Africa's most dynamic innovation hubs, attracting billions in investment and creating thousands of jobs across the continent.</p>
+                
+                <p>The past year has seen remarkable growth in fintech, e-commerce, and artificial intelligence sectors, with Nigerian startups raising over $2 billion in venture capital funding.</p>
+                
+                <h2>Key Growth Drivers</h2>
+                <p>Several factors have contributed to this unprecedented boom. Mobile internet penetration has reached 85% of the population, creating a massive market for digital services. Additionally, government initiatives like the National Digital Economy Policy have provided crucial support for tech entrepreneurs.</p>
+                
+                <p>Major tech companies including Google, Microsoft, and Meta have established offices in Lagos and Abuja, recognizing Nigeria's potential as a technology powerhouse.</p>
+                
+                <h2>Looking Ahead</h2>
+                <p>Industry experts predict that Nigeria will continue to lead African tech innovation, with particular growth expected in AI-powered solutions for agriculture, healthcare, and education.</p>`,
+                tags: ["Nigeria", "Technology", "AI", "Startups"],
+                views: 2100,
+                readTime: "4 min",
+                sponsored: false
+            },
+            {
+                id: 2,
+                title: "President Announces New Economic Reforms for 2025",
+                category: "Politics",
+                author: "Political Desk",
+                date: "2025-10-31",
+                image: "https://images.unsplash.com/photo-1541872703-74c5e44368f9?w=800",
+                excerpt: "Major economic reforms announced today aim to boost GDP and create jobs across Nigeria...",
+                content: `<p>In a landmark address to the nation, the President unveiled comprehensive economic reforms designed to accelerate growth and improve living standards for all Nigerians.</p>`,
+                tags: ["Politics", "Economy", "Reform"],
+                views: 3500,
+                readTime: "5 min",
+                sponsored: false
+            },
+            {
+                id: 3,
+                title: "Nollywood's Rising Stars: The New Generation of African Cinema",
+                category: "Entertainment",
+                author: "Entertainment Desk",
+                date: "2025-10-30",
+                image: "https://images.unsplash.com/photo-1574267432644-f610a6733ab6?w=800",
+                excerpt: "Meet the young talents reshaping Nollywood and taking African stories to global audiences...",
+                content: `<p>A new generation of filmmakers and actors is revolutionizing Nollywood, bringing fresh perspectives and international recognition to Nigerian cinema.</p>`,
+                tags: ["Entertainment", "Nollywood", "Cinema"],
+                views: 1800,
+                readTime: "6 min",
+                sponsored: false
+            },
+            {
+                id: 4,
+                title: "Super Eagles Secure Spot in AFCON Finals",
+                category: "Sports",
+                author: "Sports Desk",
+                date: "2025-10-29",
+                image: "https://images.unsplash.com/photo-1579952363873-27f3bade9f55?w=800",
+                excerpt: "Nigeria's national team delivers stunning performance in qualifier match...",
+                content: `<p>The Super Eagles have booked their place in the AFCON finals after a commanding 3-1 victory over their rivals in yesterday's qualifier.</p>`,
+                tags: ["Sports", "Football", "AFCON"],
+                views: 4200,
+                readTime: "3 min",
+                sponsored: false
+            },
+            {
+                id: 5,
+                title: "Lagos Stock Exchange Hits Record High",
+                category: "Business",
+                author: "Business Desk",
+                date: "2025-10-28",
+                image: "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=800",
+                excerpt: "Market analysts celebrate as Nigerian stocks reach unprecedented levels...",
+                content: `<p>The Nigerian stock market has reached an all-time high, with the NSE All-Share Index closing above 70,000 points for the first time in history.</p>`,
+                tags: ["Business", "Stocks", "Economy"],
+                views: 2800,
+                readTime: "4 min",
+                sponsored: false
+            },
+            {
+                id: 6,
+                title: "Best Investment Opportunities in Nigeria 2025",
+                category: "Business",
+                author: "Sponsored Content",
+                date: "2025-10-27",
+                image: "https://images.unsplash.com/photo-1559526324-593bc073d938?w=800",
+                excerpt: "Discover where smart investors are putting their money this year...",
+                content: `<p>From real estate to technology startups, explore the top investment opportunities available in Nigeria's growing economy.</p>`,
+                tags: ["Investment", "Business"],
+                views: 1500,
+                readTime: "5 min",
+                sponsored: true
+            },
+            {
+                id: 7,
+                title: "Top 10 Nigerian Startups to Watch in 2025",
+                category: "Tech",
+                author: "Sponsored Content",
+                date: "2025-10-26",
+                image: "https://images.unsplash.com/photo-1559136555-9303baea8ebd?w=800",
+                excerpt: "These innovative companies are changing the game in African tech...",
+                content: `<p>Meet the startups that are disrupting industries and attracting major investment from local and international venture capitalists.</p>`,
+                tags: ["Startups", "Tech"],
+                views: 1200,
+                readTime: "7 min",
+                sponsored: true
+            },
+            {
+                id: 8,
+                title: "Revolution in Nigerian Healthcare: AI Diagnosis Centers",
+                category: "Tech",
+                author: "Health Tech Reporter",
+                date: "2025-10-25",
+                image: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800",
+                excerpt: "AI-powered diagnostic centers are transforming healthcare access across Nigeria...",
+                content: `<p>New AI-powered medical facilities are bringing world-class diagnostic capabilities to underserved communities across Nigeria.</p>`,
+                tags: ["Healthcare", "AI", "Technology"],
+                views: 1900,
+                readTime: "5 min",
+                sponsored: false
+            },
+            {
+                id: 9,
+                title: "Political Tensions Rise Ahead of State Elections",
+                category: "Politics",
+                author: "Political Correspondent",
+                date: "2025-10-24",
+                image: "https://images.unsplash.com/photo-1529107386315-e1a2ed48a620?w=800",
+                excerpt: "Campaign activities intensify as parties prepare for upcoming state polls...",
+                content: `<p>Political parties across Nigeria are ramping up campaign activities as state elections draw near.</p>`,
+                tags: ["Politics", "Elections"],
+                views: 2600,
+                readTime: "5 min",
+                sponsored: false
+            },
+            {
+                id: 10,
+                title: "Burna Boy Announces World Tour 2025",
+                category: "Entertainment",
+                author: "Music Reporter",
+                date: "2025-10-23",
+                image: "https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=800",
+                excerpt: "Grammy winner to perform in 50 cities across five continents...",
+                content: `<p>Nigerian superstar Burna Boy has announced an ambitious world tour that will take him to major cities across Africa, Europe, Asia, and the Americas.</p>`,
+                tags: ["Entertainment", "Music", "Burna Boy"],
+                views: 5100,
+                readTime: "3 min",
+                sponsored: false
+            }
+        ];
+        
+        // Current page state
+        let currentPage = 'home';
+        
+        // Initialize page
+        window.onload = function() {
+            setTimeout(() => {
+                document.getElementById('preloader').style.display = 'none';
+            }, 800);
+            
+            loadPage('home');
+            loadTheme();
+            handleScroll();
+        };
+        
+        // Load different pages
+        function loadPage(page) {
+            currentPage = page;
+            const mainContent = document.getElementById('mainContent');
+            
+            // Update active nav link
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+                if (link.dataset.page === page) {
+                    link.classList.add('active');
+                }
+            });
+            
+            // Close mobile menu if open
+            document.getElementById('nav').classList.remove('active');
+            
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            
+            switch(page) {
+                case 'home':
+                    mainContent.innerHTML = getHomePage();
+                    break;
+                case 'politics':
+                case 'business':
+                case 'entertainment':
+                case 'sports':
+                case 'tech':
+                    mainContent.innerHTML = getCategoryPage(page);
+                    break;
+                case 'article':
+                    mainContent.innerHTML = getArticlePage(1);
+                    break;
+                case 'about':
+                    mainContent.innerHTML = getAboutPage();
+                    break;
+                case 'contact':
+                    mainContent.innerHTML = getContactPage();
+                    break;
+                default:
+                    mainContent.innerHTML = getHomePage();
+            }
+        }
+        
+        // Homepage Template
+        function getHomePage() {
+            const regularArticles = articles.filter(a => !a.sponsored).slice(0, 6);
+            const sponsoredArticles = articles.filter(a => a.sponsored);
+            
+            return `
+                <!-- Top Ad -->
+                <div class="ad-leaderboard">
+                    <!-- Replace with your Google AdSense code -->
+                    Ad Placeholder (728×90)
+                </div>
+                
+                <div class="container">
+                    <main>
+                        <!-- Hero Section -->
+                        <div class="hero" onclick="openArticle(1)">
+                            <img src="${articles[0].image}" alt="Hero" loading="lazy">
+                            <div class="hero-overlay">
+                                <span class="category-tag">${articles[0].category}</span>
+                                <h1 class="hero-title">${articles[0].title}</h1>
+                                <div class="article-meta">By ${articles[0].author} • ${articles[0].date} • ${articles[0].readTime}</div>
+                            </div>
+                        </div>
+                        
+                        <!-- Latest News -->
+                        <h2 class="section-title">Latest News</h2>
+                        <div class="news-grid">
+                            ${regularArticles.map(article => createNewsCard(article)).join('')}
+                        </div>
+                        
+                        <!-- Inline Ad -->
+                        <div class="ad-inline">
+                            <!-- Replace with your Google AdSense code -->
+                            Ad Placeholder (Responsive)
+                        </div>
+                        
+                        <!-- Sponsored Articles -->
+                        <h2 class="section-title">Sponsored Articles</h2>
+                        <div class="news-grid">
+                            ${sponsoredArticles.map(article => createNewsCard(article, true)).join('')}
+                        </div>
+                    </main>
+                    
+                    <!-- Sidebar -->
+                    <aside class="sidebar">
+                        ${getSidebar()}
+                    </aside>
+                </div>
+                
+                <!-- Bottom Ad -->
+                <div class="ad-leaderboard">
+                    <!-- Replace with your Google AdSense code -->
+                    Ad Placeholder (728×90)
+                </div>
+            `;
+        }
+        
+        // Category Page Template
+        function getCategoryPage(category) {
+            const categoryName = category.charAt(0).toUpperCase() + category.slice(1);
+            const filtered = articles.filter(a => a.category.toLowerCase() === category && !a.sponsored);
+            
+            return `
+                <div class="page-header">
+                    <h1>${categoryName}</h1>
+                    <p>Stay updated with the latest ${category} news and stories</p>
+                </div>
+                
+                <div class="ad-leaderboard">
+                    Ad Placeholder (728×90)
+                </div>
+                
+                <div class="container">
+                    <main>
+                        <h2 class="section-title">${categoryName} News</h2>
+                        <div class="news-grid">
+                            ${filtered.map(article => createNewsCard(article)).join('')}
+                        </div>
+                        
+                        <div class="ad-inline">
+                            Ad Placeholder (Responsive)
+                        </div>
+                    </main>
+                    
+                    <aside class="sidebar">
+                        ${getSidebar()}
+                    </aside>
+                </div>
+            `;
+        }
+        
+        // Single Article Page Template
+        function getArticlePage(id) {
+            const article = articles.find(a => a.id === id);
+            if (!article) return '<p>Article not found</p>';
+            
+            const relatedArticles = articles
+                .filter(a => a.category === article.category && a.id !== id)
+                .slice(0, 3);
+            
+            return `
+                <div class="ad-leaderboard">
+                    Ad Placeholder (728×90)
+                </div>
+                
+                <div class="container full-width">
+                    <main>
+                        <div class="article-header">
+                            <span class="category-tag">${article.category}</span>
+                            <h1>${article.title}</h1>
+                            <div class="article-meta">
+                                By ${article.author} • ${article.date} • ${article.readTime} • ${article.views.toLocaleString()} views
+                            </div>
+                        </div>
+                        
+                        <img src="${article.image}" alt="${article.title}" class="article-image">
+                        
+                        <div class="article-content">
+                            ${article.content}
+                            
+                            <div class="article-tags">
+                                <strong>Tags:</strong>
+                                ${article.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+                            </div>
+                        </div>
+                        
+                        <div class="ad-inline">
+                            Ad Placeholder (Responsive)
+                        </div>
+                        
+                        <h2 class="section-title">Related Articles</h2>
+                        <div class="news-grid">
+                            ${relatedArticles.map(a => createNewsCard(a)).join('')}
+                        </div>
+                    </main>
+                </div>
+            `;
+        }
+        
+        // About Page Template
+        function getAboutPage() {
+            return `
+                <div class="page-header">
+                    <h1>About Creeds Hub</h1>
+                    <p>Nigeria's trusted source for news and information</p>
+                </div>
+                
+                <div class="container full-width">
+                    <main>
+                        <div class="article-content">
+                            <h2>Who We Are</h2>
+                            <p>Creeds Hub (also known as Creed News) is Nigeria's premier online news platform, delivering accurate, timely, and comprehensive coverage of local and international news since our founding.</p>
+                            
+                            <h2>Our Mission</h2>
+                            <p>We are committed to providing our readers with high-quality journalism that informs, educates, and empowers. Our team of experienced journalists works around the clock to bring you breaking news, in-depth analysis, and exclusive stories that matter.</p>
+                            
+                            <h2>What We Cover</h2>
+                            <p>Our coverage spans multiple categories including Politics, Business, Entertainment, Sports, and Technology. We pride ourselves on balanced reporting and giving voice to all perspectives.</p>
+                            
+                            <h2>Our Values</h2>
+                            <p><strong>Accuracy:</strong> We fact-check every story and source our information from reliable channels.</p>
+                            <p><strong>Integrity:</strong> We maintain editorial independence and resist any form of bias or manipulation.</p>
+                            <p><strong>Timeliness:</strong> We break stories as they happen, keeping you informed 24/7.</p>
+                            <p><strong>Accessibility:</strong> We make news accessible to everyone through our user-friendly platform.</p>
+                            
+                            <h2>Join Our Team</h2>
+                            <p>We're always looking for talented journalists, editors, and content creators. If you're passionate about storytelling and committed to excellence, we'd love to hear from you.</p>
+                        </div>
+                    </main>
+                </div>
+            `;
+        }
+        
+        // Contact Page Template
+        function getContactPage() {
+            return `
+                <div class="page-header">
+                    <h1>Contact Us</h1>
+                    <p>Get in touch with the Creeds Hub team</p>
+                </div>
+                
+                <div class="container full-width">
+                    <main>
+                        <div class="contact-form">
+                            <h2 style="margin-bottom: 20px;">Send Us a Message</h2>
+                            <form onsubmit="return handleContactForm(event)">
+                                <div class="form-group">
+                                    <label>Your Name *</label>
+                                    <input type="text" required placeholder="Enter your full name">
+                                </div>
+                                <div class="form-group">
+                                    <label>Email Address *</label>
+                                    <input type="email" required placeholder="your.email@example.com">
+                                </div>
+                                <div class="form-group">
+                                    <label>Subject *</label>
+                                    <input type="text" required placeholder="What is this about?">
+                                </div>
+                                <div class="form-group">
+                                    <label>Message *</label>
+                                    <textarea required placeholder="Write your message here..."></textarea>
+                                </div>
+                                <button type="submit" class="submit-btn">Send Message</button>
+                            </form>
+                        </div>
+                        
+                        <div class="article-content" style="margin-top: 40px;">
+                            <h2>Other Ways to Reach Us</h2>
+                            <p><strong>Email:</strong> info@creedshub.com</p>
+                            <p><strong>Phone:</strong> +234 (0) 123 456 7890</p>
+                            <p><strong>Address:</strong> 123 Media Plaza, Victoria Island, Lagos, Nigeria</p>
+                            
+                            <h2>Business Inquiries</h2>
+                            <p>For advertising and partnership opportunities, please contact: advertising@creedshub.com</p>
+                            
+                            <h2>Editorial Tips</h2>
+                            <p>Have a news tip or story idea? Send it to: tips@creedshub.com</p>
+                        </div>
+                    </main>
+                </div>
+            `;
+        }
+        
+        // Create news card
+        function createNewsCard(article, isSponsored = false) {
+            return `
+                <div class="news-card" onclick="openArticle(${article.id})">
+                    <img src="${article.image}" alt="${article.title}" loading="lazy">
+                    <div class="news-card-content">
+                        <span class="category-tag">${isSponsored ? 'Sponsored' : article.category}</span>
+                        <h3 class="news-card-title">${article.title}</h3>
+                        <p class="news-card-excerpt">${article.excerpt}</p>
+                        <div class="news-card-footer">
+                            <span>${article.date}</span>
+                            <span>${article.readTime}</span>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+        
+        // Sidebar Template
+        function getSidebar() {
+            const trending = articles.filter(a => !a.sponsored)
+                .sort((a, b) => b.views - a.views)
+                .slice(0, 5);
+            
+            return `
+                <div class="sidebar-section">
+                    <h3 class="sidebar-title">Trending Now</h3>
+                    ${trending.map((article, index) => `
+                        <div class="trending-item" onclick="openArticle(${article.id})">
+                            <div class="trending-number">${index + 1}</div>
+                            <div class="trending-content">
+                                <h4>${article.title}</h4>
+                                <span>${article.views.toLocaleString()} views</span>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+                
+                <div class="sidebar-section">
+                    <h3 class="sidebar-title">Stay Updated</h3>
+                    <p style="font-size: 14px; margin-bottom: 15px;">Get the latest news delivered to your inbox.</p>
+                    <form class="newsletter-form" onsubmit="return subscribeNewsletter(event)">
+                        <input type="email" placeholder="Your email address" required>
+                        <button type="submit">Subscribe</button>
+                    </form>
+                </div>
+                
+                <div class="ad-vertical">
+                    <!-- Replace with your Google AdSense code -->
+                    Ad Placeholder (300×600)
+                </div>
+            `;
+        }
+        
+        // Open article
+        function openArticle(id) {
+            let recent = JSON.parse(localStorage.getItem('recentlyViewed') || '[]');
+            if (!recent.includes(id)) {
+                recent.unshift(id);
+                recent = recent.slice(0, 5);
+                localStorage.setItem('recentlyViewed', JSON.stringify(recent));
+            }
+            
+            loadPage('article');
+            const mainContent = document.getElementById('mainContent');
+            mainContent.innerHTML = getArticlePage(id);
+        }
+        
+        // Toggle menu
+        function toggleMenu() {
+            document.getElementById('nav').classList.toggle('active');
+        }
+        
+        // Toggle search modal
+        function toggleSearch() {
+            const modal = document.getElementById('searchModal');
+            modal.classList.toggle('active');
+            if (modal.classList.contains('active')) {
+                document.getElementById('searchInput').focus();
+            } else {
+                document.getElementById('searchInput').value = '';
+                document.getElementById('searchResults').innerHTML = '';
+            }
+        }
+        
+        // Perform search
+        function performSearch() {
+            const query = document.getElementById('searchInput').value.toLowerCase().trim();
+            const resultsContainer = document.getElementById('searchResults');
+            
+            if (query.length < 2) {
+                resultsContainer.innerHTML = '<p style="padding: 20px; text-align: center; color: #999;">Type at least 2 characters to search...</p>';
+                return;
+            }
+            
+            const results = articles.filter(article => 
+                article.title.toLowerCase().includes(query) ||
+                article.excerpt.toLowerCase().includes(query) ||
+                article.category.toLowerCase().includes(query) ||
+                article.tags.some(tag => tag.toLowerCase().includes(query))
+            );
+            
+            if (results.length === 0) {
+                resultsContainer.innerHTML = '<p style="padding: 20px; text-align: center; color: #999;">No results found for "' + query + '"</p>';
+                return;
+            }
+            
+            resultsContainer.innerHTML = results.map(article => `
+                <div class="search-result-item" onclick="openArticle(${article.id}); toggleSearch();">
+                    <span class="category-tag" style="font-size: 10px;">${article.category}</span>
+                    <h4>${highlightQuery(article.title, query)}</h4>
+                    <p>${highlightQuery(article.excerpt.substring(0, 100), query)}...</p>
+                    <small style="color: #999;">${article.date} • ${article.readTime}</small>
+                </div>
+            `).join('');
+        }
+        
+        // Highlight search query
+        function highlightQuery(text, query) {
+            const regex = new RegExp(`(${query})`, 'gi');
+            return text.replace(regex, '<span style="background: #fff59d; font-weight: bold;">$1</span>');
+        }
+        
+        // Toggle theme
+        function toggleTheme() {
+            document.body.classList.toggle('dark-mode');
+            const isDark = document.body.classList.contains('dark-mode');
+            localStorage.setItem('darkMode', isDark);
+            document.querySelector('.theme-toggle').textContent = isDark ? '☀️' : '🌙';
+        }
+        
+        // Load theme
+        function loadTheme() {
+            const isDark = localStorage.getItem('darkMode') === 'true';
+            if (isDark) {
+                document.body.classList.add('dark-mode');
+                document.querySelector('.theme-toggle').textContent = '☀️';
+            }
+        }
+        
+        // Newsletter subscription
+        function subscribeNewsletter(event) {
+            event.preventDefault();
+            const email = event.target.querySelector('input').value;
+            alert(`Thank you for subscribing with ${email}! You'll receive our daily newsletter.`);
+            event.target.reset();
+            return false;
+        }
+        
+        // Contact form handler
+        function handleContactForm(event) {
+            event.preventDefault();
+            alert('Thank you for your message! We will get back to you soon.');
+            event.target.reset();
+            return false;
+        }
+        
+        // Scroll to top
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        
+        // Handle scroll events
+        function handleScroll() {
+            window.addEventListener('scroll', () => {
+                const backToTop = document.getElementById('backToTop');
+                if (window.scrollY > 300) {
+                    backToTop.style.display = 'flex';
+                } else {
+                    backToTop.style.display = 'none';
+                }
+            });
+        }
+        
+        // Close search on Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                const modal = document.getElementById('searchModal');
+                if (modal.classList.contains('active')) {
+                    toggleSearch();
+                }
+            }
+        });
+        
+        // Lazy loading images
+        if ('IntersectionObserver' in window) {
+            const imageObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const img = entry.target;
+                        img.src = img.dataset.src || img.src;
+                        img.classList.add('loaded');
+                        observer.unobserve(img);
+                    }
+                });
+            });
+            
+            setTimeout(() => {
+                document.querySelectorAll('img[loading="lazy"]').forEach(img => {
+                    imageObserver.observe(img);
+                });
+            }, 100);
+        }
+    </script>
+</body>
+</html>
